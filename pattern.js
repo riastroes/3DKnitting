@@ -8,22 +8,26 @@ function Pattern(type, name, rows, stitches){
       this.create(name);
     }
     else if(type == "Round"){
+      println("Round");
       var knit ="";
       this.stitches = stitches;
       for(var r = 0; r < this.rows; r++){
         for(var s = 0; s < this.stitches; s++){
-          knit = knit.concat("R");
+          knit = knit.concat("+");
         }
-        this.stitches += 4;
-
       }
       append(this.pattern, knit);
-      return this.pattern;
+     
+     
     }
 }
 Pattern.prototype.create = function(name){
     var pat ="";
     switch(name){
+       case "none":{ //no difference in thickness
+        this.patternKnit(this.rows, this.stitches);
+        break;
+      }
       case "Knit":{
         this.patternKnit(this.rows, this.stitches);
         break;
@@ -47,8 +51,25 @@ Pattern.prototype.create = function(name){
         this.patternKP(this.rows, this.stitches);
         break;
       }
+       case "Triangle":{
+        //minderen
+        this.createPatternTriangle(this.rows, this.stitches);
+        break;
+      }
+      
     }
     return this.pattern;
+}
+Pattern.prototype.createPatternTriangle = function(rows, stitches){
+  this.rows =rows;
+  var s = stitches;
+  
+  append(this.pattern, this.startR(s));
+  for(var r = 0; r < this.rows; r++){
+    append(this.pattern, this.rowR(r, s));
+    s -= 1;
+  }
+  //append(this.pattern, this.endR(this.rows, this.stitches));
 }
 Pattern.prototype.patternKnit = function(){
     append(this.pattern, this.startR(this.stitches));

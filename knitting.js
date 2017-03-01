@@ -3,6 +3,7 @@ function Knitting(pattern, first){
   this.pattern = pattern.pattern;
   this.first = first;
   this.knitting = [];
+  this.purls = [];
   this.thickness =[];
   this.rows = [];
   this.create();
@@ -41,14 +42,10 @@ Knitting.prototype.createStitches = function(row,types){
 }
 Knitting.prototype.gcode = function(settings, layer){
   var commands = new Array(";knitting");
-  if(app.gcode.speed != layer.speed){
-    app.gcode.speed = layer.speed;
-    commands = append(commands, "G0 F" + app.gcode.speed);
-  }
-  if(app.gcode.layerheight != (layer.layer* layer.layerheight)){
-    app.gcode.layerheight = (layer.layer*layer.layerheight);
-    commands = append(commands, "G0 Z"+ (app.gcode.layerheight));
-  }
+  commands = append(commands, "G0 F" + layer.speed);
+  commands = append(commands, "G0 Z"+ layer.layerheight);
+  
+  var a = 0;
   var v;
   for(var k =1; k < this.knitting.length; k++){
 
@@ -63,19 +60,31 @@ Knitting.prototype.gcode = function(settings, layer){
 
         v.mult(settings.scale);
         var z = this.thickness[k];
-        if( z == 1){
-           app.gcode.extrude += v.mag() * layer.thickness * 0.8 ;
-                  }
-        else if( z == 2){
-           app.gcode.extrude += v.mag() * layer.thickness;
+        
+        if(app.pattern.name == "none"){ //no difference in thickness
+           app.gcode.extrude += v.mag() * layer.thickness * 1 ;
+           if(z==3){
+              app.gcode.extrude += v.mag() * layer.thickness * 0.5;
+              this.purls[a] =this.knitting[k-1];
+              this.purls[a+1]=this.knitting[k];
+              a += 2;
+           }
         }
-        else if( z == 3){
-           app.gcode.extrude += v.mag() * layer.thickness * 2.1;
-        }
-        else if( z == 0){
-           app.gcode.extrude += v.mag() * layer.thickness;
-        }else{
-          println("FOUT");
+        else{
+          if( z == 1){
+            app.gcode.extrude += v.mag() * layer.thickness * 1 ;
+                    }
+          else if( z == 2){
+            app.gcode.extrude += v.mag() * layer.thickness * 1.3;
+          }
+          else if( z == 3){
+            app.gcode.extrude += v.mag() * layer.thickness * 1.6;
+          }
+          else if( z == 0){
+            app.gcode.extrude += v.mag() * layer.thickness;
+          }else{
+            println("FOUT");
+          }
         }
         commands = append(commands, "G1 X"+  (this.knitting[k].x* settings.scale) + " Y"+ (this.knitting[k].y* settings.scale) + " E" + app.gcode.extrude);
       }else{
@@ -104,11 +113,11 @@ Knitting.prototype.draw= function(){
           stroke(0);
         }
         else if(t == 2){
-          strokeWeight(3);
+          strokeWeight(2);
           stroke(0);
         }
         else if(t == 3){
-          strokeWeight(1);
+          strokeWeight(3);
           stroke(0);
         }
 

@@ -8,11 +8,11 @@ function Gcode(layer){
 
 Gcode.prototype.startCode = function(){
     append(this.commands, ";start code");
-    append(this.commands, "M140 S50");
+    append(this.commands, "M140 S52");
     append(this.commands, "M109 T0 S210");
     append(this.commands, "T0");
 
-    append(this.commands, "M190 S50           ;bed temperature on");
+    append(this.commands, "M190 S52           ;bed temperature on");
     append(this.commands, "M109 S210          ;extruder temperature on");
     append(this.commands, "G21                ;metric values");
     append(this.commands, "G90                ;absolute positioning");
@@ -52,8 +52,8 @@ Gcode.prototype.getCodeToStart = function(skirtlast, knittingfirst, thickness, s
 
   var v = p5.Vector.sub(skirtlast, knittingfirst);
   v.mult(app.settings.scale);
-  this.extrude += (v.mag() * this.layerheight * this.thickness);
-  tostart = append(tostart, "G1 Z"+ (this.layer* this.layerheight) +" X"+  (knittingfirst.x*scale) + " Y"+ (knittingfirst.y*scale) + " E"+ this.extrude  );
+  //this.extrude += (v.mag() * this.layerheight * this.thickness);
+  tostart = append(tostart, "G0 Z"+ (this.layer* this.layerheight) +" X"+  (knittingfirst.x*scale) + " Y"+ (knittingfirst.y*scale)  );
   this.commands.concat(tostart);
 }
 Gcode.prototype.save = function(name){

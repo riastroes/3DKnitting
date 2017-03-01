@@ -1,26 +1,50 @@
-function Grid(settings, maxrows, maxstitches){
+function Grid(type, settings, maxrows, maxstitches){
   this.pos = [];
   this.last = app.first.copy();
   this.width = settings.width;
   this.height = settings.height;
   this.maxw = maxstitches;
   this.maxh = maxrows;
-  this.init();
+  this.init(type);
 }
-Grid.prototype.init = function(){
-  for(var x = 0; x < this.maxw; x += 1){
-    this.pos[x]=[];
-    for(var y = 0; y < this.maxh; y += 1){
-      var xx = (this.width/this.maxw)*x;
-      var yy = (this.height/this.maxh)*y;
-      this.pos[x][y] = createVector(xx,yy,0);
+Grid.prototype.init = function(type){
+  if(type == "Rect"){
+    for(var x = 0; x < this.maxw; x += 1){
+      this.pos[x]=[];
+      for(var y = 0; y < this.maxw; y += 1){
+        var xx = (this.width/this.maxw)*x;
+        var yy = (this.height/this.maxh)*y;
+        this.pos[x][y] = createVector(xx,yy,0);
+      }
+    }
+  }
+  else if(type == "Round"){
+    //x = rows 
+    //y = stitches 
+    var center = createVector(this.width/2, this.height/2);
+    for(var x = 0; x < this.maxh; x += 1){
+      this.pos[x]=[];
+      for(var y = 0; y < this.maxw; y += 1){
+        var radius = 100 + ( x * this.maxh);
+        var xx = center.x  + (radius * cos((TWO_PI/(this.maxw-1)) * y));
+        var yy = center.y + (radius * sin((TWO_PI/(this.maxw-1)) * y));
+        println(xx + " " + yy);
+        this.pos[x][y] = createVector(xx,yy,0);
+        println(x + "----" + y);
+      }
     }
   }
 }
 Grid.prototype.get = function(x,y,z){
-
-  var p = this.pos[x][y].copy();
-  p.z = z;
+  var p;
+  if(x < this.maxh && y < this.maxw){
+    p = this.pos[x][y].copy();
+    p.z = z;
+  }
+  else{
+    println("FOUT:" + x + ","  + y);
+    p = createVector(0,0,0); // FOUT
+  }
   return p;
 }
 Grid.prototype.stretch = function(sx, sy){
@@ -42,8 +66,10 @@ Grid.prototype.showPoint = function(x,y){
 Grid.prototype.draw = function(){
   stroke(0);
   strokeWeight(1);
-  for(var x = 0; x < this.maxw; x += 1){
-    for(var y = 0; y < this.maxh; y += 1){
+  // for(var x = 0; x < this.maxw; x += 1){
+  //   for(var y = 0; y < this.maxh; y += 1){
+ for(var x = 0; x < this.maxh; x += 1){
+    for(var y = 0; y < this.maxw; y += 1){
       //var i = y * this.maxw + x;
       point(this.pos[x][y].x, this.pos[x][y].y);
     }

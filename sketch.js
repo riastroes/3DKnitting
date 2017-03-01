@@ -11,7 +11,7 @@ function setup() {
     app.init();
     app.grid.draw();
 
-    app.knitting.draw();
+    app.structure.draw();
     app.skirt.draw();
     //app.grid.showPoint(50,50);
     noLoop();
@@ -19,7 +19,7 @@ function setup() {
 function mousePressed(){
     if(!app.isSaved){
       app.generateGcode();
-      app.gcode.save("3DKnitting-01");
+      app.gcode.save(app.pattern.name + app.pattern.rows + "x" + app.pattern.stitches);
       app.isSaved = true;
     }
 }

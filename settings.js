@@ -3,7 +3,7 @@ function Settings(material, style, scale){
   this.style = style;
   this.width = width;
   this.height = height;
-  this.scale = 0.2;         //canvas = 1000 px, bed = 200 mm
+  this.scale = 0.22;         //canvas = 1000 px, bed = 220 mm
 
   this.nozzletemp;
   this.bedtemp;
