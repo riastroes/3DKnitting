@@ -25,7 +25,7 @@ function Structure(pattern, first, layerheight){
        next.x = row;
        next.y += this.rows[row].stitches[s].stitch[i].y;
        next.z = this.rows[row].stitches[s].stitch[i].z;
-       next.t = this.rows[row].stitches[s].stitch[i].t;
+       next.t += this.layerheight / app.grid.maxw //this.rows[row].stitches[s].stitch[i].t;
        if((next.y % app.grid.maxw) == 0 && s > 0){
            next.y = 0;
            next.t += this.layerheight;
