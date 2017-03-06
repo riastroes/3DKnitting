@@ -14,11 +14,22 @@ Stitch.prototype.create =function(){
         this.stitch[1] = new Pos(0,1,0,0);
         break;
        }
-        case '+': {                         // 1 plat
+       case '+': {                         // 1 plat
         this.max = 2;
         this.stitch = [];
         this.stitch[0] = new Pos(0,0,0,0);
-        this.stitch[1] = new Pos(0,1,0,2);
+         this.stitch[1] = new Pos(0,1,0,2);
+
+        break;
+       }
+        case '1': {                         // 1 bol
+        this.max = 4;
+        this.stitch = [];
+        this.stitch[0] = new Pos(0,0,0,0);
+        this.stitch[1] = new Pos(1,1,0,2);
+        this.stitch[2] = new Pos(0,2,0,2);
+        this.stitch[3] = new Pos(0,1,0,2);
+
         break;
        }
         case 'A': {                         //R opzetten naar rechts, eerste steek
