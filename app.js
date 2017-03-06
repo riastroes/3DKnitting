@@ -12,8 +12,8 @@ App.prototype.init = function(){
     this.first = new Pos(0,0,0,0);
     this.settings = new Settings("PLA","normal",5);
     this.grid = new Grid("Round", this.settings,10,30);
-    
-   
+
+
    this.pattern = new Pattern("Round", "Circle",1,195);  //type, name, rows, stitches
    this.structure = new Structure(this.pattern, this.first, 0.27);
    this.skirt = new Skirt(this.first, this.pattern.rows,this.pattern.stitches,1);

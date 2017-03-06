@@ -20,8 +20,8 @@
             "name": "Attach to Chrome",
             "type": "chrome",
             "request": "attach",
-            "port":3344,
-            "url":"http://localhost:3344/index.html",
+            "port":8080,
+            "url":"http://localhost:8080/index.html",
             "webRoot": "${/User/Ria Stroes/3DKnitting}/"
             
         }

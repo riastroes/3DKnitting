@@ -19,9 +19,9 @@ Grid.prototype.init = function(type){
     }
   }
   else if(type == "Round"){
-    //x = rows 
-    //y = stitches 
-    var center = createVector(this.width/2, this.height/2);
+    //x = rows
+    //y = stitches
+    var center = createVector(this.width/2, this.height/3);
     for(var x = 0; x < this.maxh; x += 1){
       this.pos[x]=[];
       for(var y = 0; y < this.maxw; y += 1){
@@ -105,7 +105,7 @@ Grid.prototype.round = function(center, radius){
       this.pos[x][y] = createVector(xx,yy);
     }
     s += 4;
-    r += 4; 
+    r += 4;
   }
 }
 
@@ -132,12 +132,12 @@ Grid.prototype.addRow = function(row){
 void disorderRadius(PVector center, float radius,  float force){
     PVector dis;
     float distance = 0;
-    
-    
+
+
     for(int h = 0; h < this.hmax; h++){
       for( int w = 0 ; w < this.wmax; w++){
         distance = dist(center.x, center.y, this.pos[(h* this.wmax)+ w].x, this.pos[(h* this.wmax)+ w].y);
-        
+
         if(distance < radius){
           dis = center.copy();
           dis.sub(this.pos[(h* this.wmax)+ w]);
@@ -146,6 +146,6 @@ void disorderRadius(PVector center, float radius,  float force){
           this.pos[(h* this.wmax)+ w].add(dis);
         }
       }
-    }  
+    }
   }
 */
