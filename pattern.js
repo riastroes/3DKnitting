@@ -13,7 +13,13 @@ function Pattern(type, name, rows, stitches){
       this.stitches = stitches;
       for(var r = 0; r < this.rows; r++){
         for(var s = 0; s < this.stitches; s++){
-          knit = knit.concat("+");
+          if(this.name == "Circle"){
+            knit = knit.concat("+");
+          }
+          else if(this.name == "Circle1"){
+             knit = knit.concat("1");
+         }
+          
         }
       }
       append(this.pattern, knit);
