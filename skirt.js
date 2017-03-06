@@ -32,9 +32,8 @@ Skirt.prototype.createLineAbs = function(){
 
     //this.next.add2(-this.marge,-this.marge,0,0);
 
-    this.skirt[0] = createVector(10,10);
-    this.skirt[1] = createVector(200,10);
-    this.skirt[2] = createVector(10,10);
+    this.skirt[0] = createVector(60,60);
+    //this.skirt[1] = createVector(800,60);
     
     this.last = this.skirt.length;
     app.grid.last = this.next.copy();

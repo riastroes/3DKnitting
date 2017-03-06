@@ -18,7 +18,7 @@ function Structure(pattern, first, layerheight){
  Structure.prototype.createStitches = function(row,types){
    var next = new Pos(0,0,0,0);
    this.rows[row] = new Row(types);
-
+   var rowx = 0
 
    for(var s = 0; s < this.rows[row].maxstitches; s++){
      for(var i = 0; i < this.rows[row].stitches[s].stitch.length; i++){
@@ -27,12 +27,19 @@ function Structure(pattern, first, layerheight){
        next.y += this.rows[row].stitches[s].stitch[i].y;
        next.z = this.layerheight + ((this.layerheight /( app.grid.maxw))*this.s) ;
        
-      
-       if((next.y % app.grid.maxw) == 0 && s > 0){
-           next.y = 0;
+       if(next.y >= app.grid.maxw){
+         //end of circle
+         next.y = 0;
+         next.x = row;
+         
        }
-       append(this.structure, app.grid.get(next.x,next.y,next.z));
-       append(this.thickness, 1);
+      //  if((next.y % app.grid.maxw) == 0 && s > 0){
+      //      next.y = 0;
+      //  }
+       //else{
+        append(this.structure, app.grid.get(next.x,next.y,next.z));
+        append(this.thickness, 1);
+       //}
      }
      this.s++;
      app.grid.last = next.copy();
@@ -50,10 +57,10 @@ Structure.prototype.gcode = function(settings, layer){
     if((this.thickness[k]) == 0 && k>0){
       commands = append(commands, "G0 X"+  (this.structure[k-1].x* settings.scale) + " Y"+ (this.structure[k-1].y* settings.scale) + " Z"+ this.structure[k-1].z);
     }
-    else if(k >0){
+    else if(k >0 && !(floor(this.structure[k-1].x*100) == floor(this.structure[k].x*100) && floor(this.structure[k-1].y*100) == floor(this.structure[k].y*100))){
       v = p5.Vector.sub(this.structure[k-1], this.structure[k]);
       v.mult(settings.scale);
-      if(v.mag() > 0){
+      if(v.mag() > 0 && this.structure[k].x > 0 && this.structure[k].y > 0 && this.structure[k].z > 0 ){
 
         
         var t = layer.thickness ;

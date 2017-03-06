@@ -26,9 +26,39 @@ Stitch.prototype.create =function(){
         this.max = 4;
         this.stitch = [];
         this.stitch[0] = new Pos(0,0,0,0);
-        this.stitch[1] = new Pos(1,1,0,2);
+        this.stitch[1] = new Pos(2,1,0,2);
         this.stitch[2] = new Pos(0,2,0,2);
         this.stitch[3] = new Pos(0,1,0,2);
+
+        break;
+       }
+        case '2': {                         // 2 driehoekjes
+        this.max = 5;
+        this.stitch = [];
+        this.stitch[0] = new Pos(0,0,0,0);
+        this.stitch[1] = new Pos(0,2,0,2);
+        this.stitch[2] = new Pos(2,1,0,2);
+        this.stitch[3] = new Pos(2,3,0,2);
+        this.stitch[4] = new Pos(0,2,0,2);
+
+        break;
+        }
+        case '3': {                         // 3 steek
+        this.max = 13;
+        this.stitch = [];
+        this.stitch[0] = new Pos(0,0,0,0);
+        this.stitch[1] = new Pos(0,1,0,2);
+        this.stitch[2] = new Pos(1,2,0,2);
+        this.stitch[3] = new Pos(2,2,0,2);
+        this.stitch[4] = new Pos(3,1,0,2);
+        this.stitch[5] = new Pos(4,1,0,2);
+        this.stitch[6] = new Pos(5,2,0,2);
+        this.stitch[7] = new Pos(5,3,0,2);
+        this.stitch[8] = new Pos(4,4,0,2);
+        this.stitch[9] = new Pos(3,4,0,2);
+        this.stitch[10] = new Pos(2,3,0,2);
+        this.stitch[11] = new Pos(1,3,0,2);
+        this.stitch[12] = new Pos(0,4,0,2);
 
         break;
        }

@@ -23,6 +23,7 @@ Gcode.prototype.startCode = function(){
     append(this.commands, "G92 E0             ;zero the extruded");
     append(this.commands, "G1 F200 E10        ;extrude 10mm of feed stock");
     append(this.commands, "G92 E0             ;zero the extruded length again");
+    append(this.commands, "G0 Z2              ;zero the extruded length again");
     append(this.commands, "M117 Printing...");
 }
 Gcode.prototype.getCode = function(knitting){
@@ -44,16 +45,15 @@ Gcode.prototype.endCode = function(){
 }
 Gcode.prototype.getCodeToStart = function(skirtlast, knittingfirst, thickness, speed, scale){
   var tostart = new Array("");
-  if(this.speed != speed){
-    this.speed = speed;
-    append(tostart, ";tostart");
-    append(tostart, "G1 F" + this.speed);
-  }
-
+  
+  append(tostart, ";tostart");
+  append(tostart, "G1 F" + this.speed );
+  
   var v = p5.Vector.sub(skirtlast, knittingfirst);
   v.mult(app.settings.scale);
   //this.extrude += (v.mag() * this.layerheight * this.thickness);
-  tostart = append(tostart, "G0 Z"+ (this.layer* this.layerheight) +" X"+  (knittingfirst.x*scale) + " Y"+ (knittingfirst.y*scale)  );
+  tostart = append(tostart, "G0  X"+  (knittingfirst.x*scale) + " Y"+ (knittingfirst.y*scale) );
+  tostart = append(tostart, "G0  Z"+ (this.layer* this.layerheight));
   this.commands.concat(tostart);
 }
 Gcode.prototype.save = function(name){

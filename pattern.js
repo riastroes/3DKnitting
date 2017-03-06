@@ -19,7 +19,12 @@ function Pattern(type, name, rows, stitches){
           else if(this.name == "Circle1"){
              knit = knit.concat("1");
          }
-          
+           else if(this.name == "Circle2"){
+             knit = knit.concat("2");
+         }
+         else if(this.name == "Circle3"){
+             knit = knit.concat("3");
+         }
         }
       }
       append(this.pattern, knit);
