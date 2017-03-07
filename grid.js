@@ -25,7 +25,7 @@ Grid.prototype.init = function(type){
     for(var x = 0; x < this.maxh; x += 1){
       this.pos[x]=[];
       for(var y = 0; y < this.maxw; y += 1){
-        var radius = 100 + ( x *5); //armband = 170
+        var radius = 150 + ( x *8); //armband = 170, flexibele armband = 150
         var xx = center.x  + (radius * cos((TWO_PI/(this.maxw-1)) * y));
         var yy = center.y + (radius * sin((TWO_PI/(this.maxw-1)) * y));
         //println(xx + " " + yy);

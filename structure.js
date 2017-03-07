@@ -25,7 +25,7 @@ function Structure(pattern, first, layerheight){
        next = app.grid.last.copy();
        next.x = row + this.rows[row].stitches[s].stitch[i].x;
        next.y += this.rows[row].stitches[s].stitch[i].y;
-       next.z = this.layerheight + ((this.layerheight /( app.grid.maxw))*this.s) ;
+       next.z = this.rows[row].stitches[s].stitch[i].z + (this.layerheight /( app.grid.maxw))*(this.s+1) ;
        
        if(next.y >= app.grid.maxw){
          //end of circle
@@ -57,7 +57,7 @@ Structure.prototype.gcode = function(settings, layer){
     if((this.thickness[k]) == 0 && k>0){
       commands = append(commands, "G0 X"+  (this.structure[k-1].x* settings.scale) + " Y"+ (this.structure[k-1].y* settings.scale) + " Z"+ this.structure[k-1].z);
     }
-    else if(k >0 && !(floor(this.structure[k-1].x*100) == floor(this.structure[k].x*100) && floor(this.structure[k-1].y*100) == floor(this.structure[k].y*100))){
+    else if(k >0 && !(floor(this.structure[k-1].x*100) == floor(this.structure[k].x*100) && floor(this.structure[k-1].y*100) == floor(this.structure[k].y*100) && floor(this.structure[k-1].z*100) == floor(this.structure[k].z*100))){
       v = p5.Vector.sub(this.structure[k-1], this.structure[k]);
       v.mult(settings.scale);
       if(v.mag() > 0 && this.structure[k].x > 0 && this.structure[k].y > 0 && this.structure[k].z > 0 ){

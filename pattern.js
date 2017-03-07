@@ -1,4 +1,5 @@
 function Pattern(type, name, rows, stitches){
+    this.type = type;
     this.name = name;
     this.rows = rows;
     this.pattern =[];
@@ -7,8 +8,7 @@ function Pattern(type, name, rows, stitches){
       
       this.create(name);
     }
-    else if(type == "Round"){
-      println("Round");
+    else if(this.type == "Round"){
       var knit ="";
       this.stitches = stitches;
       for(var r = 0; r < this.rows; r++){
@@ -24,6 +24,12 @@ function Pattern(type, name, rows, stitches){
          }
          else if(this.name == "Circle3"){
              knit = knit.concat("3");
+         }
+         else if(this.name == "Up4"){
+             knit = knit.concat("4");
+         }
+         else if(this.name == "Up5"){
+             knit = knit.concat("5");
          }
         }
       }

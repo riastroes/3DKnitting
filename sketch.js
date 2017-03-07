@@ -19,7 +19,7 @@ function setup() {
 function mousePressed(){
     if(!app.isSaved){
       app.generateGcode();
-      app.gcode.save(app.pattern.name + app.pattern.rows + "x" + app.pattern.stitches);
+      app.gcode.save("Serie170307"+ app.pattern.type +  app.pattern.name + app.pattern.rows + "x" + app.pattern.stitches);
       app.isSaved = true;
     }
 }
