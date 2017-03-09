@@ -72,14 +72,20 @@ Stitch.prototype.create =function(){
         this.stitch[4] = new Pos(0,2,0.1,2);
          break;
        }
-       case '5': {                         //5 steek
-        this.max = 5;
+       case '5': {                         //5 boogje
+        this.max = 2;
         this.stitch = [];
-        this.stitch[0] = new Pos(0,0,0.1,0);
-        this.stitch[1] = new Pos(0,0,4,2);
-        this.stitch[2] = new Pos(0,2,4,2);
-        this.stitch[3] = new Pos(0,2,0.1,2);
-        this.stitch[4] = new Pos(0,4,0.1,2);
+        this.stitch[0] = new Pos(0,1,2,2);
+        this.stitch[1] = new Pos(0,2,0,2);
+        
+         break;
+       }
+        case '6': {                         //6 hoger boogje
+        this.max = 2;
+        this.stitch = [];
+        this.stitch[0] = new Pos(0,1,4.1,0);
+        this.stitch[1] = new Pos(0,2,0.1,2);
+        
          break;
        }
         case 'A': {                         //R opzetten naar rechts, eerste steek

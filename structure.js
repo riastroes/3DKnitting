@@ -18,21 +18,23 @@ function Structure(pattern, first, layerheight){
  Structure.prototype.createStitches = function(row,types){
    var next = new Pos(0,0,0,0);
    this.rows[row] = new Row(types);
-   var rowx = 0
+   
 
    for(var s = 0; s < this.rows[row].maxstitches; s++){
      for(var i = 0; i < this.rows[row].stitches[s].stitch.length; i++){
        next = app.grid.last.copy();
        next.x = row + this.rows[row].stitches[s].stitch[i].x;
        next.y += this.rows[row].stitches[s].stitch[i].y;
-       next.z = this.rows[row].stitches[s].stitch[i].z + (this.layerheight /( app.grid.maxw))*(this.s+1) ;
+       next.z = app.layer.layerheight +  ( (this.layerheight /( app.grid.maxw))*(this.s+1))  +this.rows[row].stitches[s].stitch[i].z;
        
        if(next.y >= app.grid.maxw){
          //end of circle
-         next.y = 0;
+         next.y = 1;
          next.x = row;
          
        }
+       
+       println("x: " + next.x + ", y: " + next.y + ", z: " + next.z )
       //  if((next.y % app.grid.maxw) == 0 && s > 0){
       //      next.y = 0;
       //  }

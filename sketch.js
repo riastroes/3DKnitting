@@ -10,7 +10,7 @@ function setup() {
     app = new App();
     app.init();
     app.grid.draw();
-
+    app.generateGcode();
     app.structure.draw();
     app.skirt.draw();
     //app.grid.showPoint(50,50);
@@ -18,7 +18,7 @@ function setup() {
 }
 function mousePressed(){
     if(!app.isSaved){
-      app.generateGcode();
+      
       app.gcode.save("Serie170307"+ app.pattern.type +  app.pattern.name + app.pattern.rows + "x" + app.pattern.stitches);
       app.isSaved = true;
     }
