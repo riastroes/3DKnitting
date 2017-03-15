@@ -51,9 +51,21 @@ Gcode.prototype.getCodeToStart = function(skirtlast, knittingfirst, thickness, s
   
   var v = p5.Vector.sub(skirtlast, knittingfirst);
   v.mult(app.settings.scale);
-  //this.extrude += (v.mag() * this.layerheight * this.thickness);
+  this.extrude += (v.mag() * this.layerheight * this.thickness);
   tostart = append(tostart, "G0  Z3");
-  tostart = append(tostart, "G0  X"+  (knittingfirst.x*scale) + " Y"+ (knittingfirst.y*scale) );
+  tostart = append(tostart, "G1  X"+  (knittingfirst.x*scale) + " Y"+ (knittingfirst.y*scale) );
+  tostart = append(tostart, "G0  Z"+ (this.layer* this.layerheight));
+  this.commands.concat(tostart);
+}
+
+Gcode.prototype.getCodeToStartUltimaker = function(skirtlast, knittingfirst, thickness, speed, scale){
+  var tostart = new Array("");
+  
+  append(tostart, ";tostart");
+  append(tostart, "G1 F" + this.speed );
+  tostart = append(tostart, "G0  Z10");
+  tostart = append(tostart, "G0  X0 Y"+ (knittingfirst.y*scale) );
+  tostart = append(tostart, "G1  X"+  (knittingfirst.x*scale) + " Y"+ (knittingfirst.y*scale) );
   tostart = append(tostart, "G0  Z"+ (this.layer* this.layerheight));
   this.commands.concat(tostart);
 }

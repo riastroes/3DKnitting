@@ -10,7 +10,7 @@ function App(){
 App.prototype.init = function(){
     this.first = new Pos(16,16,0,0);
     this.settings = new Settings("PLA","normal",5);
-    this.grid = new Grid(this.settings,200, 200);
+    this.grid = new Grid("Rect",this.settings,200, 200);
    // this.grid.stretch(1,1);
 
    //pattern with flower in the middle
@@ -38,7 +38,7 @@ App.prototype.generateGcode = function(){
   this.gcode.startCode();
   this.gcode.getCode(this.layer.gcode());
   this.gcode.getCode(this.skirt.gcode(this.settings, this.layer));
-  this.gcode.getCodeToStart(this.skirt.skirt[0],this.knitting.knitting[0], this.layer);
+  this.gcode.getCodeToStart(this.skirt.last,this.knitting.knitting[0], this.layer);
   this.layer = new Layer(1,1.3, 0.15, 800);  //layer, layerheight, thickness, speed
   this.gcode.getCode(this.layer.gcode());
   this.gcode.getCode(this.knitting.gcode(this.settings, this.layer));

@@ -23,7 +23,7 @@ App.prototype.generateGcode = function(){
   this.gcode.startCode();
   this.gcode.getCode(this.layer.gcode());
   this.gcode.getCode(this.skirt.gcode(this.settings, this.layer));
-  this.gcode.getCodeToStart(this.skirt.skirt[0],this.structure.structure[0], this.layer);
+  this.gcode.getCodeToStart(this.skirt.last,this.structure.structure[0], this.layer);
   this.layer = new Layer(1,0.5, 0.2, 100);  //layer, layerheight, thickness, speed  // armband 0.1 thickness
   this.gcode.getCode(this.layer.gcode());
   this.gcode.getCode(this.structure.gcode(this.settings, this.layer));

@@ -1,9 +1,11 @@
-function Settings(material, style, scale){
+function Settings(printer, material, style, scale){
+  this.printer = "Ultimaker2+";
   this.material = material;
   this.style = style;
   this.width = width;
   this.height = height;
-  this.scale = 0.22;         //canvas = 1000 px, bed = 220 mm
+  this.scale = 0.23;         //canvas = 1000 px, bed = 220 mm
+  
 
   this.nozzletemp;
   this.bedtemp;
@@ -16,6 +18,10 @@ Settings.prototype.initTemperature = function(){
     case "PLA":{
       this.nozzletemp = 210;
       this.bedtemp = 50;
+      if(this.style == "fine"){
+        this.layerheight = 1;
+        this.thickness = 0.02;
+      }
       break;
     }
     case "TPC FLEX":{

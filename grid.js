@@ -8,14 +8,30 @@ function Grid(type, settings, maxrows, maxstitches){
   this.init(type);
 }
 Grid.prototype.init = function(type){
+  var s = 0;
+  if(type == "RectShrink"){
+    for(var x = 0; x < this.maxw; x += 1){
+      this.pos[x]=[];
+      s=0;
+      for(var y = 0; y < this.maxw; y += 1){
+        var xx = (this.width/(this.maxw + s))*x;
+        var yy = (this.height/(this.maxh + s))*y;
+        this.pos[x][y] = createVector(xx,yy,0);
+        s += 1;
+      }
+
+    }
+  }
   if(type == "Rect"){
     for(var x = 0; x < this.maxw; x += 1){
       this.pos[x]=[];
       for(var y = 0; y < this.maxw; y += 1){
-        var xx = (this.width/this.maxw)*x;
-        var yy = (this.height/this.maxh)*y;
+        var xx = (this.width/(this.maxw))*x;
+        var yy = (this.height/(this.maxh))*y;
         this.pos[x][y] = createVector(xx,yy,0);
+
       }
+
     }
   }
   else if(type == "Round"){
@@ -35,6 +51,27 @@ Grid.prototype.init = function(type){
     }
   }
 }
+Grid.prototype.maskCircle = function(){
+  var xx = 0;
+  var yy = 0;
+  center = createVector(this.maxh/2, this.maxw/2);
+  radius = this.maxh/2;
+  this.maskpos = [];
+  for(var x = 0; x  < this.maxh; x +=1){
+    this.maskpos[x] = [];
+    yy = 0;
+    for(var y = 0; y < this.maxw; y+=1){
+      var a = x - center.x;
+      var b = y - center.y;
+      if((a*a) +(b*b) <= (radius * radius)){
+        this.maskpos[x][yy] = createVector(x,y);
+        yy += 1;
+      }
+    }
+  }
+}
+
+
 Grid.prototype.get = function(x,y,z){
   var p;
   if(x < this.maxh && y < this.maxw){
@@ -42,23 +79,25 @@ Grid.prototype.get = function(x,y,z){
     p.z = z;
   }
   else{
-    
+
      println("FOUT:" + x + ","  + y);
     p = this.pos[x][y].copy();
     p.z = z;
-   
+
     //p = createVector(0,0,0); // FOUT
   }
   return p;
 }
-Grid.prototype.stretch = function(sx, sy){
+Grid.prototype.stretch = function(sx, sy){;
+
   for(var x = 0; x < this.maxw; x += 1){
     this.pos[x]=[];
     for(var y = 0; y < this.maxh; y += 1){
-      var xx = (this.width/(this.maxw / sx)) *x;
+      var xx = (this.width/(this.maxw /(sx ))) *x;
       var yy = (this.height/(this.maxh / sy))*y;
       this.pos[x][y] = createVector(xx,yy,0);
     }
+
   }
 }
 
@@ -70,10 +109,9 @@ Grid.prototype.showPoint = function(x,y){
 Grid.prototype.draw = function(){
   stroke(0);
   strokeWeight(1);
-  // for(var x = 0; x < this.maxw; x += 1){
-  //   for(var y = 0; y < this.maxh; y += 1){
- for(var x = 0; x < this.maxh; x += 1){
-    for(var y = 0; y < this.maxw; y += 1){
+
+ for(var x = 0; x < this.maxw; x += 1){
+    for(var y = 0; y < this.maxh; y += 1){
       //var i = y * this.maxw + x;
       point(this.pos[x][y].x, this.pos[x][y].y);
     }
@@ -132,6 +170,7 @@ Grid.prototype.addRow = function(row){
   }
   this.maxh +=1;
 }
+
 /*
 void disorderRadius(PVector center, float radius,  float force){
     PVector dis;

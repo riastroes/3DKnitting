@@ -11,9 +11,9 @@ function setup() {
     app.init();
     app.grid.draw();
     app.generateGcode();
-    app.structure.draw();
+    app.knitting.draw();
     app.skirt.draw();
-    //app.grid.showPoint(50,50);
+    app.grid.showPoint(50,50);
     noLoop();
 }
 function mousePressed(){

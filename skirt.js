@@ -8,7 +8,7 @@ function Skirt(first,rows,stitches, marge){
     this.stitches = stitches;
     this.marge = marge;
 
-    this.createLineAbs();
+    this.createLine();
 
 }
 Skirt.prototype.createLine = function(){
@@ -22,7 +22,7 @@ Skirt.prototype.createLine = function(){
     this.skirt[1] = app.grid.pos[this.next.x][this.next.y].add(createVector(0,-20,0));
     this.next.add2(-w,0, 0,0);
     this.skirt[2] = app.grid.pos[this.next.x][this.next.y];
-    this.last = this.skirt.length;
+    this.last = this.skirt[2];
     app.grid.last = this.next.copy();
 
 }
@@ -35,7 +35,7 @@ Skirt.prototype.createLineAbs = function(){
     this.skirt[0] = createVector(60,60);
     this.skirt[1] = createVector(800,60);
     
-    this.last = this.skirt.length;
+    this.last = this.skirt[1];
     app.grid.last = this.next.copy();
 
 }
@@ -58,7 +58,7 @@ Skirt.prototype.createRect = function(){
     this.next.add2(0, -((2*this.marge) + h), 0,0);
     this.skirt[3] = app.grid.pos[this.next.x][this.next.y].add(createVector(2,-2,0));
     this.skirt[7] = app.grid.pos[this.next.x][this.next.y].add(createVector(1,-1,0));
-    this.last = this.skirt.length;
+    this.last = this.skirt[8];
     app.grid.last = this.next.copy();
 
 }

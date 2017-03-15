@@ -3,9 +3,10 @@ function Pattern(type, name, rows, stitches){
     this.name = name;
     this.rows = rows;
     this.pattern =[];
+    this.form =[];
     if(type == "Straight"){
       this.stitches = stitches;
-      
+
       this.create(name);
     }
     else if(this.type == "Round"){
@@ -40,9 +41,8 @@ function Pattern(type, name, rows, stitches){
         }
       //}
       append(this.pattern, knit);
-     
-     
     }
+
 }
 Pattern.prototype.create = function(name){
     var pat ="";
@@ -79,14 +79,17 @@ Pattern.prototype.create = function(name){
         this.createPatternTriangle(this.rows, this.stitches);
         break;
       }
-      
+      default:{
+
+      }
+
     }
     return this.pattern;
 }
 Pattern.prototype.createPatternTriangle = function(rows, stitches){
   this.rows =rows;
   var s = stitches;
-  
+
   append(this.pattern, this.startR(s));
   for(var r = 0; r < this.rows; r++){
     append(this.pattern, this.rowR(r, s));
@@ -133,7 +136,27 @@ Pattern.prototype.patternKP= function(){
     }
     append(this.pattern, this.endA(this.rows, this.stitches));
 }
+Pattern.prototype.patternFormKnit = function(row, stitches){
+   append(this.pattern, this.startA(this.stitches));
+}
+
+Pattern.prototype.createPatternMask = function(){
+  var knit=""
+  for(var x = 0; x < app.grid.maxh; x++){
+    knit =knit.concat("K");
+    for(var y = 0; y < app.grid.maskpos[x].length; y++){
+      if(x % 2 ==0){
+        knit = knit.concat("L");
+      }
+      else{
+        knit = knit.concat("R");
+      }
+    }
+    knit =knit.concat("S");
+  }
+}
 Pattern.prototype.startR = function(){
+
     var opzet ="A";
     for(var i = 1; i < this.stitches-1; i++){
       opzet = opzet.concat("B");

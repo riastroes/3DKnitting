@@ -73,10 +73,13 @@ Stitch.prototype.create =function(){
          break;
        }
        case '5': {                         //5 boogje
-        this.max = 2;
+        this.max =4;
         this.stitch = [];
-        this.stitch[0] = new Pos(0,1,2,2);
-        this.stitch[1] = new Pos(0,2,0,2);
+        this.stitch[0] = new Pos(0,0,0,2);
+        this.stitch[1] = new Pos(0,2,1,2);
+        this.stitch[2] = new Pos(0,4,1,2);
+        this.stitch[3] = new Pos(0,6,0,2);
+        
         
          break;
        }
